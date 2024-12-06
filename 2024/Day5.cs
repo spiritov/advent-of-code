@@ -72,7 +72,6 @@ class Day5
                                 int pageBuffer = ints[i];
                                 ints[i] = ints[j];
                                 ints[j] = pageBuffer;
-                                outOfOrderUpdates.Add(ints);
                             }
                         }
                     }
@@ -83,6 +82,10 @@ class Day5
 
                 sum += ints[ints.Count / 2];
             }
+            else
+            {
+                outOfOrderUpdates.Add(ints);
+            }
         }
         Console.WriteLine(sum);
     }
@@ -90,7 +93,7 @@ class Day5
     public void Part2()
     {
         int sum = 0;
-        foreach (List<int> ints in outOfOrderUpdates.Distinct()) //duplicates of last ints item are in this list
+        foreach (List<int> ints in outOfOrderUpdates)
         {
             sum += ints[ints.Count / 2];
         }
