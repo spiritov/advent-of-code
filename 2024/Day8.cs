@@ -42,7 +42,7 @@ class Day8
     {
         return p.Row > -1 && p.Row < maxRow && p.Col > -1 && p.Col < maxCol;
     }
-    private void FindAntinodes(bool includeResonantFrequencies)
+    private void FindExtendedAntinodes(bool all)
     {
         foreach (var (_, positions) in nodeGroups)
         {
@@ -64,7 +64,7 @@ class Day8
                         antinodeLocations.Add(antinodeBA);
                     }
 
-                    if (includeResonantFrequencies)
+                    if (all)
                     {
                         antinodeLocations.Add(nodeA);
                         antinodeLocations.Add(nodeB);
@@ -94,12 +94,12 @@ class Day8
         maxCol = input[0].Length;
         PopulateNodeGroups();
 
-        FindAntinodes(false);
+        FindExtendedAntinodes(false);
         Console.WriteLine($"Part 1: {antinodeLocations.Count}");
     }
     public void Part2()
     {
-        FindAntinodes(true);
+        FindExtendedAntinodes(true);
         Console.WriteLine($"Part 2: {antinodeLocations.Count}");
     }
 }
