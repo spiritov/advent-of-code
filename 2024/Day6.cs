@@ -1,11 +1,13 @@
+using System.Diagnostics;
+
 class Day6
 {
     private readonly List<string> input = ReadInput.CreateListForDay(6);
+    private (int, int) startPosition = (0, 0);
     private (int, int) currentPosition = (0, 0);
     private Direction direction = Direction.Up;
-    private List<(int, int)> path = new(500);
-    private List<(int, int)> obstructions = new(100);
-    private int maxSteps = 0;
+    private readonly HashSet<(int, int)> path = new(500);
+    private readonly HashSet<(int, int)> obstructions = new(100);
     private int maxRow = 0;
     private int maxCol = 0;
     private bool solved = false;
@@ -22,16 +24,13 @@ class Day6
     {
         if (position.Item1 > -1 && position.Item1 < maxRow && position.Item2 > -1 && position.Item2 < maxCol)
         {
-            if (!obstructions.Contains(position))
-            {
-                return true;
-            }
+            return !obstructions.Contains(position);
         }
         else //outside bounds
         {
             solved = true;
+            return false;
         }
-        return false;
     }
 
     private void MoveStep((int, int) position, bool addToPath)
@@ -69,13 +68,16 @@ class Day6
         }
     }
 
-    private void InitializeLocations()
+    private void InitializeMap()
     {
+        maxRow = input.Count;
+        maxCol = input[0].Length;
         for (int i = 0; i < maxRow; i++)
         {
-            if (input[i].IndexOf('^') != -1) //find starting guard position
+            if (input[i].Contains('^')) //find starting guard position
             {
-                currentPosition = (i, input[i].IndexOf('^'));
+                startPosition = (i, input[i].IndexOf('^'));
+                currentPosition = startPosition;
             }
 
             int searchIndex = 0;
@@ -93,48 +95,39 @@ class Day6
 
     public void Part1()
     {
-        maxRow = input.Count;
-        maxCol = input[0].Length;
-
-        InitializeLocations();
+        InitializeMap();
         path.Add(currentPosition);
-
-        solved = false;
 
         while (!solved)
         {
             MoveStep(currentPosition, true);
         }
-        path = path.Distinct().ToList();
-        maxSteps = path.Count;
+
         Console.WriteLine($"Part 1: {path.Count}");
     }
 
     public void Part2()
     {
         int loops = 0;
-
-        for (int i = 1; i < maxSteps; i++) //i represents each step along the path
+        foreach ((int, int) location in path) //i represents each step along the path
         {
-            int steps = 0;
-            bool looping = false;
+            HashSet<((int, int) Position, Direction Dir)> stepsWithDirection = new();
             solved = false;
             direction = Direction.Up;
 
-            obstructions.Add(path[i]); //remove after iterating
-            currentPosition = path[0];
+            obstructions.Add(location); //remove after iterating
+            currentPosition = startPosition;
 
-            while (!solved && !looping)
+            while (!solved)
             {
-                MoveStep(currentPosition, false); //we're tracking steps, not path, for Part2
-                steps++;
-                if (steps > maxSteps * 1.5) //if we've hit this many steps, we're probably looping
+                MoveStep(currentPosition, false); //we're tracking with direction, for Part2
+                if (!stepsWithDirection.Add(new(currentPosition, direction)))
                 {
-                    looping = true;
                     loops++;
+                    break;
                 }
             }
-            obstructions.RemoveAt(obstructions.Count - 1);
+            obstructions.Remove(location);
         }
 
         Console.WriteLine($"Part 2: {loops}");
