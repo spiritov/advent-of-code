@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 class Day9
 {
     private readonly string input = ReadInput.CreateListForDay(9)[0];
@@ -142,3 +140,4 @@ class Day9
         Console.WriteLine();
     }
 }
+

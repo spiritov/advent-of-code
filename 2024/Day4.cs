@@ -1,9 +1,3 @@
-using System.Linq.Expressions;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using System.Xml;
-
 class Day4
 {
     private readonly List<string> _input = ReadInput.CreateListForDay(4);

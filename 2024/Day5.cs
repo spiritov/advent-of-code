@@ -1,13 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Security;
-using System.Text.RegularExpressions;
-
 class Day5
 {
     private readonly List<string> input = ReadInput.CreateListForDay(5);
     private readonly List<List<int>> updates = new(100);
-    private Dictionary<int, List<int>> rules = new();
+    private readonly Dictionary<int, List<int>> rules = new();
     private readonly List<List<int>> outOfOrderUpdates = new();
 
     public void PopulateDictionary(List<string> input)

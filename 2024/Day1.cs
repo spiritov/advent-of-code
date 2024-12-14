@@ -1,6 +1,3 @@
-using System.Runtime.CompilerServices;
-using Microsoft.VisualBasic;
-
 class Day1
 {
     private readonly List<string> _input = ReadInput.CreateListForDay(1);

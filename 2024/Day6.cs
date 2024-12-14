@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 class Day6
 {
     private readonly List<string> input = ReadInput.CreateListForDay(6);
