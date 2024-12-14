@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 class Day9
 {
     private readonly string input = ReadInput.CreateListForDay(9)[0];
@@ -15,7 +17,7 @@ class Day9
                 files.Add(new File(i / 2, input[i] - '0'));
                 maxID = i / 2;
             }
-            else //blank space
+            else //free space
             {
                 files.Add(new File(-1, input[i] - '0'));
             }
@@ -44,8 +46,8 @@ class Day9
     {
         for (int i = maxID; i > 0; i--)
         {
-            var maxIDFile = files.Find(file => file.ID == i);
             var maxIDIndex = files.FindIndex(file => file.ID == i);
+            var maxIDFile = files[maxIDIndex];
             for (int j = 0; j < maxIDIndex; j++)
             {
                 if (files[j].ID == -1)
@@ -74,13 +76,13 @@ class Day9
         for (int i = 0; i < files.Count; i++)
         {
             //we don't have to search past the last number we sorted, since they'll all be blank
-            if (files[i].ID == -1) //blank space found
+            if (files[i].ID == -1) //free space found
             {
                 for (int j = endIndex; j > i; j--)
                 {
                     if (files[j].ID != -1)
                     {
-                        if (files[i].Count > files[j].Count) //more blank space than file space
+                        if (files[i].Count > files[j].Count) //more free space than file space
                         {
                             files[i] = new File(files[i].ID, files[i].Count - files[j].Count);
                             files.Insert(i, new File(files[j].ID, files[j].Count));
@@ -92,7 +94,7 @@ class Day9
                             files[i] = new File(files[j].ID, files[j].Count);
                             files[j] = new File(-1, files[j].Count);
                         }
-                        else if (files[j].Count > files[i].Count) //more files than blank space
+                        else if (files[j].Count > files[i].Count) //more files than free space
                         {
                             files[i] = new File(files[j].ID, files[i].Count);
                             files[j] = new File(files[j].ID, files[j].Count - files[i].Count);
@@ -140,4 +142,3 @@ class Day9
         Console.WriteLine();
     }
 }
-
