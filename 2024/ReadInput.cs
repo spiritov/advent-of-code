@@ -4,8 +4,6 @@ class ReadInput
     {
         string fileName = $"day{dayNumber}input.txt";
         string[] dayInput = File.ReadAllLines(fileName);
-        var dayInputList = new List<string>(dayInput);
-
-        return dayInputList;
+        return new List<string>(dayInput);
     }
 }
