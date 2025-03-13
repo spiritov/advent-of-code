@@ -29,7 +29,6 @@ fn main() {
                 })
             }
         }
-
         sum += (found_digits[0].value * 10) + found_digits.last().unwrap().value;
 
         for (i, str_digit) in str_digits.iter().enumerate() {
