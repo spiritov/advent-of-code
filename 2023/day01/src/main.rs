@@ -29,7 +29,7 @@ fn main() {
                 })
             }
         }
-        found_digits.sort_by_key(|d| d.index);
+
         sum += (found_digits[0].value * 10) + found_digits.last().unwrap().value;
 
         for (i, str_digit) in str_digits.iter().enumerate() {
