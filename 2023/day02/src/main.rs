@@ -4,7 +4,7 @@ fn main() {
     let input: Vec<String> = read_to_string("input.txt")
         .unwrap()
         .lines()
-        .map(|ln| ln.replace([' '], ""))
+        .map(|ln| ln.replace(' ', ""))
         .collect();
 
     let max_cubes = [12, 13, 14];
