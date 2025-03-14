@@ -16,9 +16,9 @@ fn main() {
         let game = ln[(ln.find(':').unwrap() + 1)..].split(';');
         for set in game {
             for pull in set.split(',') {
-                for (c_i, s) in colors.iter().enumerate() {
-                    if pull.contains(s) {
-                        let num_cubes = pull.replace(s, "").parse::<i32>().unwrap();
+                for (c_i, color) in colors.iter().enumerate() {
+                    if pull.contains(color) {
+                        let num_cubes = pull.replace(color, "").parse::<i32>().unwrap();
                         if num_cubes > game_max_cubes[c_i] {
                             game_max_cubes[c_i] = num_cubes;
                         }
