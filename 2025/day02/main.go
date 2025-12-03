@@ -21,8 +21,10 @@ func main() {
 
 func part(part int, lines []string) int {
 	sum := 0
+
 	for _, line := range lines {
 		invalidRange := strings.Split(line, "-")
+
 		first, err := strconv.Atoi(invalidRange[0])
 		if err != nil {
 			log.Fatal(err)
@@ -83,5 +85,6 @@ func isInvalidID(id string, divisor int) bool {
 			return false
 		}
 	}
+
 	return true
 }
