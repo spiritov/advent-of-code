@@ -22,3 +22,5 @@ target/
 # old
 /2023/day01_old
 /2023/day03
+
+**/template
